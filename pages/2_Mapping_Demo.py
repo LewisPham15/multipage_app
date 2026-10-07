@@ -46,8 +46,8 @@ try:
             data=from_data_file("bart_stop_stats.json"),
             get_position=["lon", "lat"],
             get_text="name",
-            get_color=[0, 0, 0, 200],
-            get_size=10,
+            get_color=[255, 255, 255, 220],
+            get_size=12,
             get_alignment_baseline="'bottom'",
         ),
         "Outbound Flow": pdk.Layer(
@@ -74,13 +74,13 @@ try:
     if selected_layers:
         st.pydeck_chart(
             pdk.Deck(
-                map_style="mapbox://styles/mapbox/light-v9",
-                initial_view_state={
-                    "latitude": 37.76,
-                    "longitude": -122.4,
-                    "zoom": 11,
-                    "pitch": 50,
-                },
+                map_style=None,
+                initial_view_state=pdk.ViewState(
+                    latitude=37.76,
+                    longitude=-122.4,
+                    zoom=11,
+                    pitch=50,
+                ),
                 layers=selected_layers,
             )
         )

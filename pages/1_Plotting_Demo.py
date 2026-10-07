@@ -16,17 +16,20 @@ st.write(
 
 progress_bar = st.sidebar.progress(0)
 status_text = st.sidebar.empty()
+chart_area = st.empty()
 
-last_rows = pd.DataFrame(np.random.randn(1, 1), columns=["value"])
-chart = st.line_chart(last_rows)
+values = [float(np.random.randn())]
 
 for i in range(1, 101):
-    new_values = last_rows["value"].iloc[-1] + np.random.randn(5).cumsum()
-    new_rows = pd.DataFrame(new_values, columns=["value"])
+    steps = values[-1] + np.random.randn(5).cumsum()
+    for step in steps:
+        values.append(float(step))
+
+    frame = pd.DataFrame({"value": values})
+    chart_area.line_chart(frame)
+
     status_text.text(f"{i}% complete")
-    chart.add_rows(new_rows)
     progress_bar.progress(i)
-    last_rows = new_rows
     time.sleep(0.05)
 
 progress_bar.empty()
